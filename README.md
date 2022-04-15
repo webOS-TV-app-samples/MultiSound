@@ -157,7 +157,6 @@ Play background music with the audio element, and sound effects by calling funct
 **\[index.html\]**
 
 ```html
-<head><script>
 ...
 function takePicture() {
 source.start(0);
