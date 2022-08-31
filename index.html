@@ -1,101 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>webOS Signage: Multi-sound sample with web audio</title>
-<script type="text/javascript" src="soundEffect.js"></script>
-<script>
-var context;
-var source;
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>webOS TV Multi-sound Sample with Web Audio</title>
+    <script type="text/javascript" src="js/soundEffect.js"></script>
+    <script type="text/javascript" src="js/webAudio.js"></script>
+  </head>
+  <body>
+    <div>
+      <h1>webOS TV Multi-sound Sample with Web Audio</h1>
+      <audio id="audioElement" controls autoplay loop>
+        <source src="./sounds/demo_secret_garden.mp3" type="audio/mp3" />
+      </audio>
+      <br /><br />
 
-// Set the name of the "hidden" property and the change event for visibility
-var hidden, visibilityChange;
-if (typeof document.hidden !== "undefined") {   // To support the standard web browser engine
-    hidden = "hidden";
-    visibilityChange = "visibilitychange";
-} else if (typeof document.webkitHidden !== "undefined") {   // To support the webkit engine
-    hidden = "webkitHidden";
-    visibilityChange = "webkitvisibilitychange";
-}
-
-function initWebAudio() {
-  var sounds = ["./sounds/shutter.wav",
-                "./sounds/camstart.wav",
-                "./sounds/camstop.wav",
-                "./sounds/strings3.wav" ];
-
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
-  context = new AudioContext();
-  source = new SoundSource(context, sounds, finishedLoading);
-}
-
-function initAudioElement() {
-  // Handle page visibility change  
-  document.addEventListener(visibilityChange, handleVisibilityChange, false);
-}
-
-//initialize page
-function initPage()
-{
-  initWebAudio();
-  initAudioElement() ;
-}
-
-function finishedLoading(bufferList) {
-  // Create two sources and play them both together.
-}
-
-function takePicture() {
-  source.start(0);
-}
-
-function startRecording() {
-  source.start(1);
-}
-
-function stopRecording() {
-  source.start(2);
-}
-
-function playLongSound() {
-  source.start(3, false);
-}
-
-function suspend() {
-  var audioElement = document.getElementById("audioElement");
-  audioElement.pause();
-  source.stopAll();
-}
-
-function resume() {
-  var audioElement = document.getElementById("audioElement");
-  audioElement.play();
-}
-
-// If the page is hidden, pause the audio
-// if the page is shown, play the audio
-function handleVisibilityChange() {
-  if (document[hidden]) {
-    console.log("app suspend");
-	suspend();
-  } else {
-    console.log("app resume");
-    resume();
-  }
-}
-</script>
-</head>
-<body onload="initPage();" style="background: white;">
-<div style="text-align:center;">
-  <h1>webOS Signage: Multi-sound sample with web audio</h1>
-
-  <audio id="audioElement" controls autoplay loop>
-    <source src="./sounds/demo_secret_garden.mp3" type="audio/mp3">
-  </audio><br><br>
-  <h1>webaudio source</h1>
-  <input type="button" value="Take Picture" onclick="takePicture();" style="font-size:20px;"></input><br>
-  <input type="button" value="Start Recording" onclick="startRecording();" style="font-size:20px;"></input><br>
-  <input type="button" value="Stop Recording" onclick="stopRecording();" style="font-size:20px;"></input><br>
-  <input type="button" value="Play Long Sound" onclick="playLongSound();" style="font-size:20px;"></input><br>
-</div>
-</body>
+      <h1>Web Audio Source</h1>
+      <input type="button" value="Take Picture" id="take_picture" /><br />
+      <input type="button" value="Start Recording" id="start_recording" /><br />
+      <input type="button" value="Stop Recording" id="stop_recording" /><br />
+      <input type="button" value="Play Long Sound" id="play_long_sound" /><br />
+    </div>
+  </body>
 </html>
